@@ -64,6 +64,8 @@ def ncread(sc, paths, mode='single', **kwargs):
     
     if 'decode_times' not in kwargs:
         kwargs['decode_times'] = True
+    if 'engine' not in kwargs:
+        kwargs['engine'] = 'netcdf4'
 
     error_msg = ("You specified a mode that is not implemented.")
 
@@ -94,8 +96,9 @@ def _read_nc_single(sc, paths, **kwargs):
     partition_on = kwargs.get('partition_on')
     partitions = kwargs.get('partitions')
     decode_times=kwargs.get('decode_times')
+    engine=kwargs.get('engine')
 
-    dset = xr.open_dataset(paths, autoclose=True, decode_times=decode_times)
+    dset = xr.open_dataset(paths, autoclose=True, decode_times=decode_times, engine=engine)
 
     # D = {'dim_1': dim_1_size, 'dim_2': dim_2_size, ...}
     D = {dset[dimension].name:dset[dimension].size for dimension in partition_on}
@@ -169,8 +172,9 @@ def _read_nc_multi(sc, paths, **kwargs):
 
     partition_on = kwargs.get('partition_on')
     partitions = kwargs.get('partitions')
+    engine=kwargs.get('engine')
 
-    dset = xr.open_mfdataset(paths, autoclose=True)
+    dset = xr.open_mfdataset(paths, autoclose=True, engine=engine)
 
     # D = {'dim_1': dim_1_size, 'dim_2': dim_2_size, ...}
     D ={dset[dimension].name:dset[dimension].size for dimension in partition_on}
