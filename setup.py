@@ -41,7 +41,9 @@ INSTALL_REQUIRES = (['numpy >= 1.7',
                       'distributed >= 1.16.1',
                       'geopandas >= 0.3.0', 
                       'toolz>=0.8.2',
-                      'cloudpickle >= 0.2.1'])
+                      'cloudpickle >= 0.2.1',
+                      'eccodes-python >= 0.9',
+                      'cfgrib >=0.9'])
 
 packages = ['sparkxarray', 'sparkxarray.tests']
 
